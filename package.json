@@ -1,13 +1,12 @@
 {
-  "name": "chrome-extension-boilerplate-react-vite",
-  "version": "0.5.0",
-  "description": "chrome extension boilerplate",
+  "name": "console-dev-tool",
+  "version": "0.0.1",
+  "description": "console dev tool",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
   "repository": {
-    "type": "git",
-    "url": "https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite.git"
+    "type": "git"
   },
   "type": "module",
   "scripts": {
