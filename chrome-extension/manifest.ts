@@ -24,14 +24,13 @@ const manifest = {
   name: 'Vim Local Storage Cleaner',
   version: packageJson.version,
   description: 'Clean local storage of vim',
-  host_permissions: ['<all_urls>'],
+  host_permissions: ['http://localhost:3014/*'],
   permissions: ['storage', 'scripting', 'tabs', 'activeTab', 'cookies'],
   background: {
     service_worker: 'background.js',
     type: 'module',
   },
   action: {
-    default_popup: 'popup/index.html',
     default_icon: 'icon-34.png',
   },
 
@@ -40,23 +39,23 @@ const manifest = {
   },
   content_scripts: [
     {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
+      matches: ['http://localhost:3014/*'],
       js: ['content/all.iife.js'],
     },
     {
-      matches: ['https://example.com/*'],
+      matches: ['http://localhost:3014/*'],
       js: ['content/example.iife.js'],
     },
 
     {
-      matches: ['http://*/*', 'https://*/*', '<all_urls>'],
+      matches: ['http://localhost:3014/*'],
       css: ['content.css'],
     },
   ],
   web_accessible_resources: [
     {
       resources: ['*.js', '*.css', '*.svg', 'icon-128.png', 'icon-34.png'],
-      matches: ['*://*/*'],
+      matches: ['http://localhost:3014/*'],
     },
   ],
 } satisfies ManifestType;
