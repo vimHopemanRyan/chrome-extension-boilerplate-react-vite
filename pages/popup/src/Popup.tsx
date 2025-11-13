@@ -2,17 +2,6 @@ import '@src/Popup.css';
 import { useCleanData } from '../hooks/useCleanData';
 import { withErrorBoundary, withSuspense } from '@extension/shared';
 import { ErrorDisplay, LoadingSpinner } from '@extension/ui';
-import { useEffect, useRef, useState } from 'react';
-
-interface Particle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  life: number;
-  color: string;
-  size: number;
-}
 
 const Popup = () => {
   const { cleanData } = useCleanData();
