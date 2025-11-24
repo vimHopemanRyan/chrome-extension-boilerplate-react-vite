@@ -1,11 +1,11 @@
-#### How to add 
+# How to add 
 
-## Open chrome extension
+### Open chrome extension
 
 chrome://extensions/
 
 
-## Toggle developer mode 
+### Toggle developer mode 
 
 on the top right screen
 
@@ -14,6 +14,15 @@ on the top right screen
 
 will open a file selector, go to th un-ziped files and press select
 
-## Done 
+### Done 
 
 Will work only on local console 
+
+
+## Shortcuts 
+
+### Auto logout 
+
+CMD+shift+o 
+will trigger a confirm 
+press enter and logout will occur
