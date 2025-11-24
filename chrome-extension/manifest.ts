@@ -34,6 +34,15 @@ const manifest = {
     default_popup: 'popup/index.html',
     default_icon: 'icon-34.png',
   },
+  commands: {
+    'clean-data': {
+      suggested_key: {
+        default: 'Ctrl+Shift+O',
+        mac: 'Command+Shift+O',
+      },
+      description: 'Clean data',
+    },
+  },
 
   icons: {
     '128': 'icon-128.png',

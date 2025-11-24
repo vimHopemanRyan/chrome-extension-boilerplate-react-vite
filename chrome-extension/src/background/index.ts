@@ -1,4 +1,5 @@
 import 'webextension-polyfill';
+import { cleanData } from '@extension/shared';
 import { exampleThemeStorage } from '@extension/storage';
 
 const ALLOWED_URL_PATTERN = 'http://localhost:3014';
@@ -47,7 +48,7 @@ async function updateActionState(tabId?: number): Promise<void> {
   }
 }
 
-chrome.tabs.onActivated.addListener(async (activeInfo) => {
+chrome.tabs.onActivated.addListener(async activeInfo => {
   await updateActionState(activeInfo.tabId);
 });
 
@@ -57,7 +58,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   }
 });
 
-chrome.windows.onFocusChanged.addListener(async (windowId) => {
+chrome.windows.onFocusChanged.addListener(async windowId => {
   if (windowId !== chrome.windows.WINDOW_ID_NONE) {
     await updateActionState();
   }
@@ -71,3 +72,15 @@ updateActionState();
 
 console.log('Background loaded');
 console.log("Edit 'chrome-extension/src/background/index.ts' and save to reload.");
+
+chrome.commands.onCommand.addListener(async command => {
+  console.log('Command received:', command);
+  const currentTab = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (currentTab[0].url?.includes('localhost:3014')) {
+    switch (command) {
+      case 'clean-data':
+        cleanData();
+        break;
+    }
+  }
+});
