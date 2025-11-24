@@ -42,7 +42,7 @@ async function updateActionState(tabId?: number): Promise<void> {
       await chrome.action.setPopup({ popup: '' });
       await chrome.action.disable();
     }
-  } catch (error) {
+  } catch {
     await chrome.action.setPopup({ popup: '' });
     await chrome.action.disable();
   }
@@ -73,14 +73,29 @@ updateActionState();
 console.log('Background loaded');
 console.log("Edit 'chrome-extension/src/background/index.ts' and save to reload.");
 
+async function showConfirmation(tabId: number) {
+  const results = await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => window.confirm('Are you sure you want to log out?'),
+  });
+  return results[0]?.result;
+}
+
 chrome.commands.onCommand.addListener(async command => {
   console.log('Command received:', command);
   const currentTab = await chrome.tabs.query({ active: true, currentWindow: true });
   if (currentTab[0].url?.includes('localhost:3014')) {
-    switch (command) {
-      case 'clean-data':
+    const tabId = currentTab[0].id;
+    if (tabId === undefined) {
+      return;
+    }
+
+    if (command === 'clean-data') {
+      const confirmed = await showConfirmation(tabId);
+      if (confirmed) {
         cleanData();
-        break;
+      }
+      return;
     }
   }
 });
